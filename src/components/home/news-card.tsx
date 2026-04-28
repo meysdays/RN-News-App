@@ -8,6 +8,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useGetCategories } from "@/src/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import getCategoryList from "@/src/queryOptions/get-category-list";
+import SkeletonCard from "../skeleton";
 
 interface NewsCardprops {
   selectedCategory: Category | null;
@@ -24,7 +25,21 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
   );
 
   if (isLoading) {
-    return <Text className="text-white">Loading...</Text>;
+    return (
+      <>
+        <View className="mx-1 my-4 ">
+          <Text className="text-red-500 tracking-wide text-xl">Section</Text>
+          <Text className=" text-white font-serif font-bold text-2xl">
+            {selectedCategory?.title}
+          </Text>
+        </View>
+        <View className="flex-row flex-wrap">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <SkeletonCard key={index} />
+          ))}
+        </View>
+      </>
+    );
   }
 
   if (isError) {
@@ -46,6 +61,8 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
     <View>
       <FlatList
         data={data?.articles}
+        onRefresh={refetch}
+        refreshing={!data}
         renderItem={({ item }) => {
           if (!item) return null;
 
@@ -57,7 +74,9 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
               time={item.publishedAt}
               title={item.title}
               description={item.description}
-              onpress={() => router.push("/news")}
+              onpress={() =>
+                router.push({ pathname: "/news", params: { url: item.url } })
+              }
             />
           );
         }}

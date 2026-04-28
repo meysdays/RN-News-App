@@ -49,7 +49,7 @@ const NewsList = ({
           className="flex flex-col justify-between h-34 px-2 py-2 gap-1.5 bg-[#27292D]/20 "
         >
           <View className="flex flex-row items-center justify-between">
-            <Text className="text-white">{source}</Text>
+            <Text className="text-red-500">{source}</Text>
             {/* <View className="flex flex-row">
               <RecentIcon />
               <Text>{time}</Text>
