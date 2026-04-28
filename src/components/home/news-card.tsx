@@ -1,32 +1,66 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, Pressable } from "react-native";
 import React from "react";
 import { Category } from "@/src/services/category/types";
-import { CategoryItemData } from "@/src/app/data";
+// import { CategoryItemData } from "@/src/app/data";
 import NewsList from "./news-list";
 import { router } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useGetCategories } from "@/src/hooks/category";
+import { useQuery } from "@tanstack/react-query";
+import getCategoryList from "@/src/queryOptions/get-category-list";
 
 interface NewsCardprops {
   selectedCategory: Category | null;
 }
 
 const NewsCard = ({ selectedCategory }: NewsCardprops) => {
-  const insets = useSafeAreaInsets();
+  // console.log(selectedCategory?.title);
+
+  // const { data, isLoading, isError, error, refetch, isFetching } =
+  //   useGetCategories(selectedCategory?.title ?? "");
+
+  const { data, isLoading, isError, refetch, error } = useQuery(
+    getCategoryList(selectedCategory?.title ?? ""),
+  );
+
+  if (isLoading) {
+    return <Text className="text-white">Loading...</Text>;
+  }
+
+  if (isError) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text>{error.message}</Text>
+
+        <Pressable
+          onPress={() => refetch()}
+          className="mt-4 px-4 py-2 bg-red-300 rounded"
+        >
+          <Text className="text-black">Retry</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
   return (
     <View>
       <FlatList
-        data={CategoryItemData}
-        renderItem={({ item }) => (
-          <NewsList
-            id={item.id}
-            image={item.img}
-            source={item.source}
-            time={item.time}
-            title={item.title}
-            description={item.description}
-            onpress={() => router.push("/news")}
-          />
-        )}
+        data={data?.articles}
+        renderItem={({ item }) => {
+          if (!item) return null;
+
+          return (
+            <NewsList
+              id={item.urlToImage}
+              image={item.urlToImage}
+              source={item.source?.name}
+              time={item.publishedAt}
+              title={item.title}
+              description={item.description}
+              onpress={() => router.push("/news")}
+            />
+          );
+        }}
         ListHeaderComponent={
           <>
             <View className="mx-1 my-4 ">
@@ -43,7 +77,7 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
         }
         horizontal={false}
         numColumns={2}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.urlToImage}
         contentContainerStyle={{
           // paddingHorizontal: 8,
           paddingBottom: 280,

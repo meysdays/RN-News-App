@@ -16,7 +16,7 @@ const Categories = ({ onSelectCategory, selectedCategory }: CatergoryProps) => {
         data={CategoryData}
         renderItem={({ item }) => (
           <CategoryItem
-            title={item.title}
+            title={item.title ?? ""}
             id={item.id}
             selected={item.id === selectedCategory?.id}
             onpress={() => onSelectCategory(item)}

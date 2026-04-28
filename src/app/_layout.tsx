@@ -9,6 +9,31 @@ import {
   Inter_700Bold,
   Inter_800ExtraBold,
 } from "@expo-google-fonts/inter";
+import {
+  onlineManager,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import NetInfo from "@react-native-community/netinfo";
+
+// const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       retry: 2,
+//       staleTime: 1000 * 60 * 5,
+//       gcTime: 1000 * 60 * 60,
+//       refetchOnReconnect: true,
+//     },
+//   },
+// });
+
+const queryClient = new QueryClient();
+
+onlineManager.setEventListener((setOnline) => {
+  return NetInfo.addEventListener((state) => {
+    setOnline(!!state.isConnected);
+  });
+});
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
@@ -25,10 +50,12 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="news" options={{ headerShown: false }} />
-      </Stack>
+      <QueryClientProvider client={queryClient}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="news" options={{ headerShown: false }} />
+        </Stack>
+      </QueryClientProvider>
     </SafeAreaProvider>
   );
 }

@@ -4,18 +4,35 @@ export interface Category {
 }
 
 export interface CategoryResponse {
-    categories: Category[]
+  categories: Category[];
+}
+
+export interface Source {
+  id: string
+  name: string
 }
 
 export interface CategoryItem {
-  id: string
-  img: string
-  source: string
-  time: string
-  title: string
-  description: string
+  source: Source;
+  author: string;
+  title: string;
+  description: string;
+  url: string;
+  urlToImage: string;
+  publishedAt: string;
+  content: string;
 }
+// export interface CategoryItem {
+//   id: string
+//   img: string
+//   source: string
+//   time: string
+//   title: string
+//   description: string
+// }
 
 export interface CategoryItemResponse {
-  items: CategoryItem[];
+  status: string;
+  totalResults: number;
+  articles: CategoryItem[];
 }
