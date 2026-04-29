@@ -17,9 +17,8 @@ interface NewsListProps {
   classNameImg?: string;
   classNameBottom?: string;
   classNamePosition?: string;
-  task: CategoryItem
+  tasks: CategoryItem;
 }
-
 
 const truncateTextSmart = (text: string, maxLength: number): string => {
   if (!text) return "";
@@ -43,9 +42,14 @@ const NewsList = ({
   classNameBottom,
   classNameImg,
   classNamePosition,
-  task
+  tasks,
 }: NewsListProps) => {
-  const {addTask} =useSave();
+
+  console.log("save", tasks);
+  
+  const { addTask, task, deleteTask } = useSave();
+
+  const isBookmarked = task.some((item) => item.url === id);
 
   const desc = truncateTextSmart(description, 30);
   const tit = truncateTextSmart(title, 30);
@@ -53,8 +57,17 @@ const NewsList = ({
     <View className={cn("w-1/2 px-2 mb-4", className)}>
       <View className="border border-gray-700">
         <View className={cn("w-full h-32 ", classNameImg)}>
-          <Pressable onPress={() => addTask(task)} className={cn("bg-[#27292D]/60 p-1 absolute bottom-98 left-38", classNamePosition)}>
-            <BookmarkIcon color={"white"} />
+          <Pressable
+            onPress={() => (isBookmarked ? deleteTask(tasks.urlToImage) : addTask(tasks))}
+            className={cn(
+              "bg-[#27292D]/60 p-1 absolute bottom-98 left-38",
+              classNamePosition,
+            )}
+          >
+            <BookmarkIcon
+              fill={isBookmarked ? "red" : "transparent"}
+              color={"white"}
+            />
           </Pressable>
           <Image
             className="w-full h-full"

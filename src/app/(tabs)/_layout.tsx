@@ -12,6 +12,7 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
+        animation: "fade",
         headerShown: false,
         tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: "white",

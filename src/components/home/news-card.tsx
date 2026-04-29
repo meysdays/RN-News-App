@@ -7,12 +7,18 @@ import { router } from "expo-router";
 import { useQuery } from "@tanstack/react-query";
 import getCategoryList from "@/src/queryOptions/get-category-list";
 import SkeletonCard from "../skeleton";
+import { useSave } from "@/src/context/home/bookmark-context";
 
 interface NewsCardprops {
   selectedCategory: Category | null;
 }
 
 const NewsCard = ({ selectedCategory }: NewsCardprops) => {
+
+  const {task} = useSave();
+
+  console.log("local",task);
+  
 
   const { data, isLoading, isError, refetch, error } = useQuery(
     getCategoryList(selectedCategory?.title ?? ""),
@@ -68,7 +74,7 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
               time={item.publishedAt}
               title={item.title}
               description={item.description}
-              task={item}
+              tasks={item}
               onpress={() =>
                 router.push({ pathname: "/news", params: { url: item.url } })
               }

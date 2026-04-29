@@ -54,11 +54,9 @@ const SearchScreen = () => {
         <View className="flex flex-1 items-center justify-center">
           <Text className="text-gray-500 font-bold">SEARCH FOR KEYWORDS</Text>
         </View>
-      ) }
-
-      {isLoading && (
-        <SkeletonCard/>
       )}
+
+      {isLoading && <SkeletonCard />}
 
       <FlatList
         data={data?.articles}
@@ -77,6 +75,7 @@ const SearchScreen = () => {
               classNameBottom="h-22"
               classNameImg="h-52"
               classNamePosition="bottom-120"
+              tasks={item}
               onpress={() =>
                 router.push({ pathname: "/news", params: { url: item.url } })
               }

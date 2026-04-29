@@ -15,6 +15,7 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import NetInfo from "@react-native-community/netinfo";
+import BookmarkContextProvider from "../context/home/bookmark-context";
 
 // const queryClient = new QueryClient({
 //   defaultOptions: {
@@ -50,12 +51,14 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="news" options={{ headerShown: false }} />
-        </Stack>
-      </QueryClientProvider>
+      <BookmarkContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="news" options={{ headerShown: false }} />
+          </Stack>
+        </QueryClientProvider>
+      </BookmarkContextProvider>
     </SafeAreaProvider>
   );
 }

@@ -2,8 +2,10 @@ import { queryOptions } from "@tanstack/react-query";
 import { CategoryItemResponse } from "../services/category/types";
 import { checkInternetConnection } from "../lib/utils";
 
-const API_Key = "270d325505aa4f7ba6196cf89728b780";
+// const API_Key = "270d325505aa4f7ba6196cf89728b780";
 // const API_Key = "89ca7cda8fd6cd236327e7ae69e62176";
+
+const KEY_API = process.env.EXPO_PUBLIC_API_KEY
 
 export default function getCategoryList(name: string) {
   return queryOptions({
@@ -23,8 +25,9 @@ const getcategoryNews = async (
   let status: number = 0;
 
   try {
+    console.log("API KEY:", process.env.EXPO_PUBLIC_API_KEY);
     const response = await fetch(
-      `https://newsapi.org/v2/top-headlines?category=${name}&apikey=${API_Key}`,
+      `https://newsapi.org/v2/top-headlines?category=${name}&apiKey=${KEY_API}`,
     );
     const data: CategoryItemResponse = await response.json();
     if (!response.ok) {

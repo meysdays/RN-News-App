@@ -55,7 +55,7 @@ export default function BookmarkContextProvider({
   };
 
   const deleteTask = async (url: string) => {
-    const updatedTasks = task.filter((t) => t.url !== url);
+    const updatedTasks = task.filter((t) => t.urlToImage !== url);
     setTasks(updatedTasks);
     await persistTasks(updatedTasks);
   };

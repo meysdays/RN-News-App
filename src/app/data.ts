@@ -3,11 +3,11 @@ import { Category, CategoryItem } from "../services/category/types";
 export const CategoryData: Category[] = [
   {
     id: 1,
-    title: "Health",
+    title: "HEALTH",
   },
   {
     id: 2,
-    title: "WORLD",
+    title: "ENTERTAINMENT",
   },
   {
     id: 3,
@@ -19,11 +19,11 @@ export const CategoryData: Category[] = [
   },
   {
     id: 5,
-    title: "WEATHER",
+    title: "SCIENCE",
   },
   {
     id: 6,
-    title: "MUSIC",
+    title: "TECHNOLOGY",
   },
 ];
 
