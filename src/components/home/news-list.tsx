@@ -1,7 +1,9 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
-import { BookmarkIcon, RecentIcon } from "@/src/assets/icons";
+import { BookmarkIcon } from "@/src/assets/icons";
 import { cn } from "@/src/lib/utils";
+import { useSave } from "@/src/context/home/bookmark-context";
+import { CategoryItem } from "@/src/services/category/types";
 
 interface NewsListProps {
   id: string;
@@ -15,7 +17,9 @@ interface NewsListProps {
   classNameImg?: string;
   classNameBottom?: string;
   classNamePosition?: string;
+  task: CategoryItem
 }
+
 
 const truncateTextSmart = (text: string, maxLength: number): string => {
   if (!text) return "";
@@ -38,15 +42,18 @@ const NewsList = ({
   className,
   classNameBottom,
   classNameImg,
-  classNamePosition
+  classNamePosition,
+  task
 }: NewsListProps) => {
+  const {addTask} =useSave();
+
   const desc = truncateTextSmart(description, 30);
   const tit = truncateTextSmart(title, 30);
   return (
     <View className={cn("w-1/2 px-2 mb-4", className)}>
       <View className="border border-gray-700">
         <View className={cn("w-full h-32 ", classNameImg)}>
-          <Pressable className={cn("bg-[#27292D]/60 p-1 absolute bottom-98 left-38", classNamePosition)}>
+          <Pressable onPress={() => addTask(task)} className={cn("bg-[#27292D]/60 p-1 absolute bottom-98 left-38", classNamePosition)}>
             <BookmarkIcon color={"white"} />
           </Pressable>
           <Image

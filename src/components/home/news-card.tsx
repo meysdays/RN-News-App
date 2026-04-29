@@ -68,6 +68,7 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
               time={item.publishedAt}
               title={item.title}
               description={item.description}
+              task={item}
               onpress={() =>
                 router.push({ pathname: "/news", params: { url: item.url } })
               }
