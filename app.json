@@ -44,6 +44,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "748bd6b1-7db5-4335-b888-dea8dfe38189"
+      }
+    },
+    "owner": "meysdays"
   }
 }
