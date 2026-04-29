@@ -13,6 +13,7 @@ const TabsLayout = () => {
     <Tabs
       screenOptions={{
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         tabBarActiveTintColor: "white",
         tabBarStyle: {
           backgroundColor: "#0C0D0F",

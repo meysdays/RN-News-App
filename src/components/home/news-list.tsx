@@ -1,6 +1,7 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
-import { RecentIcon } from "@/src/assets/icons";
+import { BookmarkIcon, RecentIcon } from "@/src/assets/icons";
+import { cn } from "@/src/lib/utils";
 
 interface NewsListProps {
   id: string;
@@ -10,6 +11,10 @@ interface NewsListProps {
   time: string;
   description: string;
   onpress: () => void;
+  className?: string;
+  classNameImg?: string;
+  classNameBottom?: string;
+  classNamePosition?: string;
 }
 
 const truncateTextSmart = (text: string, maxLength: number): string => {
@@ -30,13 +35,20 @@ const NewsList = ({
   source,
   time,
   title,
+  className,
+  classNameBottom,
+  classNameImg,
+  classNamePosition
 }: NewsListProps) => {
   const desc = truncateTextSmart(description, 30);
   const tit = truncateTextSmart(title, 30);
   return (
-    <View className="w-1/2 px-2 mb-4">
+    <View className={cn("w-1/2 px-2 mb-4", className)}>
       <View className="border border-gray-700">
-        <View className="w-full h-32 ">
+        <View className={cn("w-full h-32 ", classNameImg)}>
+          <Pressable className={cn("bg-[#27292D]/60 p-1 absolute bottom-98 left-38", classNamePosition)}>
+            <BookmarkIcon color={"white"} />
+          </Pressable>
           <Image
             className="w-full h-full"
             resizeMode="cover"
@@ -46,7 +58,10 @@ const NewsList = ({
 
         <Pressable
           onPress={onpress}
-          className="flex flex-col justify-between h-34 px-2 py-2 gap-1.5 bg-[#27292D]/20 "
+          className={cn(
+            "flex flex-col justify-between h-38 px-2 py-2 gap-1.5 bg-[#27292D]/20 ",
+            classNameBottom,
+          )}
         >
           <View className="flex flex-row items-center justify-between">
             <Text className="text-red-500">{source}</Text>

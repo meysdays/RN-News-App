@@ -4,8 +4,6 @@ import { Category } from "@/src/services/category/types";
 // import { CategoryItemData } from "@/src/app/data";
 import NewsList from "./news-list";
 import { router } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useGetCategories } from "@/src/hooks/category";
 import { useQuery } from "@tanstack/react-query";
 import getCategoryList from "@/src/queryOptions/get-category-list";
 import SkeletonCard from "../skeleton";
@@ -15,10 +13,6 @@ interface NewsCardprops {
 }
 
 const NewsCard = ({ selectedCategory }: NewsCardprops) => {
-  // console.log(selectedCategory?.title);
-
-  // const { data, isLoading, isError, error, refetch, isFetching } =
-  //   useGetCategories(selectedCategory?.title ?? "");
 
   const { data, isLoading, isError, refetch, error } = useQuery(
     getCategoryList(selectedCategory?.title ?? ""),
@@ -44,8 +38,8 @@ const NewsCard = ({ selectedCategory }: NewsCardprops) => {
 
   if (isError) {
     return (
-      <View className="flex-1 items-center justify-center">
-        <Text>{error.message}</Text>
+      <View className="flex-1 items-center justify-center mt-12">
+        <Text className="text-white">{error.message}</Text>
 
         <Pressable
           onPress={() => refetch()}

@@ -11,7 +11,7 @@ const SkeletonCard = () => {
         {/* Content Skeleton */}
         <View className="h-34 px-2 py-2 gap-2 bg-[#27292D]/20">
           {/* Top row */}
-          <View className="flex flex-row items-center justify-between">
+          <View className="flex flex-row gap-2 items-center justify-between">
             <View className="w-16 h-4 rounded bg-gray-700 animate-pulse" />
             <View className="w-10 h-4 rounded bg-gray-700 animate-pulse" />
           </View>

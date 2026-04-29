@@ -21,12 +21,7 @@ const FeedScreen = () => {
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
         />
-
-        {/* <ScrollView> */}
-          
-
-          <NewsCard selectedCategory={selectedCategory} />
-        {/* </ScrollView> */}
+        <NewsCard selectedCategory={selectedCategory} />
       </SafeAreaView>
     </View>
   );
