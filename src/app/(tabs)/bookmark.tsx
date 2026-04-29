@@ -1,16 +1,18 @@
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StatusBar } from "react-native";
 import React from "react";
 import NewsList from "@/src/components/home/news-list";
 import { useSave } from "@/src/context/home/bookmark-context";
 import { router } from "expo-router";
 import TopHeader from "@/src/components/header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const BookmarkScreen = () => {
   const { task } = useSave();
   return (
     <View className="bg-[#0C0D0F] h-screen">
       {/* <Text className="text-white">BookmarkScreen</Text> */}
-
+      <SafeAreaView edges={['top', 'bottom']}>
+        <StatusBar barStyle="light-content" backgroundColor="#000" />
       <TopHeader />
       <View className="my-4">
         
@@ -44,6 +46,7 @@ const BookmarkScreen = () => {
         }}
       />
       </View>
+      </SafeAreaView>
     </View>
   );
 };

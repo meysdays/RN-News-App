@@ -13,7 +13,7 @@ const FeedScreen = () => {
   });
   return (
     <View className=" bg-[#0C0D0F] h-screen">
-      <SafeAreaView style={{}}>
+      <SafeAreaView edges={['top', 'bottom']}>
         <StatusBar barStyle="light-content" backgroundColor="#000" />
         <TopHeader />
 

@@ -7,8 +7,10 @@ import {
   SearchIcon,
 } from "@/src/assets/icons";
 import { Text, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const TabsLayout = () => {
+  const {bottom} = useSafeAreaInsets()
   return (
     <Tabs
       screenOptions={{
@@ -18,9 +20,9 @@ const TabsLayout = () => {
         tabBarActiveTintColor: "white",
         tabBarStyle: {
           backgroundColor: "#0C0D0F",
-          height: 70,
+          height: 95,
           paddingTop: 7,
-          paddingBottom: 7,
+          paddingBottom: bottom,
           borderTopWidth: 0,
           elevation: 0,
           shadowOpacity: 0,
